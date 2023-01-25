@@ -1,0 +1,27 @@
+environments:
+  default:
+    workflows:
+      - name: "covid_analysis_etl_integ"
+        tags:
+          tag1: "covid analysis etl integration"
+        new_cluster:
+          spark_version: "10.4.x-scala2.12"
+          num_workers: 1
+          node_type_id: "Standard_DS3_v2"
+        spark_python_task:
+          python_file: "file://jobs/covid_trends_job.py"
+      - name: "covid_analysis_etl_prod"
+        new_cluster:
+          spark_version: "10.4.x-scala2.12"
+          num_workers: 1
+          node_type_id: "Standard_DS3_v2"
+        spark_python_task:
+          python_file: "file://jobs/covid_trends_job.py"
+          parameters: ["--prod"]
+      - name: "covid_analysis_etl_raw"
+        new_cluster:
+          spark_version: "10.4.x-scala2.12"
+          num_workers: 1
+          node_type_id: "Standard_DS3_v2"
+        spark_python_task:
+          python_file: "file://jobs/covid_trends_job_raw.py"
